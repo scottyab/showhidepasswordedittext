@@ -2,18 +2,26 @@ package com.scottyab.showhidepasswordedittext;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.ViewUtils;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+
+import java.util.Locale;
 
 
 /**
@@ -22,8 +30,9 @@ import android.widget.EditText;
 public class ShowHidePasswordEditText extends EditText {
 
   private boolean isShowingPassword = false;
-  private Drawable drawableRight;
+  private Drawable drawableEnd;
   private Rect bounds;
+  private boolean leftToRight = true;
 
   @DrawableRes private int visiblityIndicatorShow = R.drawable.ic_visibility_grey_900_24dp;
   @DrawableRes private int visiblityIndicatorHide = R.drawable.ic_visibility_off_grey_900_24dp;
@@ -63,6 +72,8 @@ public class ShowHidePasswordEditText extends EditText {
       attrsArray.recycle();
     }
 
+    leftToRight = isLeftToRight();
+
     isShowingPassword = false;
     setInputType(EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_PASSWORD, true);
 
@@ -90,28 +101,48 @@ public class ShowHidePasswordEditText extends EditText {
     });
   }
 
+  private boolean isLeftToRight(){
+    // If we are pre JB assume always LTR
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1){
+      return true;
+    }
+
+    // Other methods, seemingly broken when testing though.
+    // return ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL
+    // return !ViewUtils.isLayoutRtl(this);
+
+    Configuration config = getResources().getConfiguration();
+      return !(config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL);
+  }
+
   @Override
   public void setCompoundDrawables(Drawable left, Drawable top,
                                    Drawable right, Drawable bottom) {
-    if (right != null) {
-      //keep a reference to the right drawable so later on touch we can check if touch is on the drawable
-      drawableRight = right;
+
+    //keep a reference to the right drawable so later on touch we can check if touch is on the drawable
+    if (leftToRight && right != null){
+      drawableEnd = right;
     }
+    else if (!leftToRight && left != null){
+      drawableEnd = left;
+    }
+
     super.setCompoundDrawables(left, top, right, bottom);
   }
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
 
-    if (event.getAction() == MotionEvent.ACTION_UP && drawableRight != null) {
-      bounds = drawableRight.getBounds();
+    if (event.getAction() == MotionEvent.ACTION_UP && drawableEnd != null) {
+      bounds = drawableEnd.getBounds();
       final int x = (int) event.getX();
-      final int y = (int) event.getY();
-      //check if the touch is within bounds of drawableRight icon
-      if (x >= (this.getRight() - bounds.width())
-              && x <= (this.getRight() - this.getPaddingRight())) {
-        togglePasswordVisability();
-        event.setAction(MotionEvent.ACTION_CANCEL);//use this to prevent the keyboard from coming up
+
+      //check if the touch is within bounds of drawableEnd icon
+      if ((leftToRight && (x >= (this.getRight() - bounds.width()))) ||
+              (!leftToRight &&  (x <= (this.getLeft() + bounds.width())))){
+          togglePasswordVisability();
+          //use this to prevent the keyboard from coming up
+          event.setAction(MotionEvent.ACTION_CANCEL);
       }
     }
     return super.onTouchEvent(event);
@@ -119,10 +150,13 @@ public class ShowHidePasswordEditText extends EditText {
 
   private void showPasswordVisibilityIndicator(boolean show) {
     if (show) {
-      setCompoundDrawablesWithIntrinsicBounds(null, null, isShowingPassword?
-                      getResources().getDrawable(visiblityIndicatorHide):
-                      getResources().getDrawable(visiblityIndicatorShow)
-              , null);
+
+      Drawable drawable = isShowingPassword?
+              getResources().getDrawable(visiblityIndicatorHide):
+              getResources().getDrawable(visiblityIndicatorShow);
+
+      setCompoundDrawablesWithIntrinsicBounds(leftToRight?null:drawable, null, leftToRight?drawable:null, null);
+
     } else {
       setCompoundDrawables(null, null, null, null);
     }
@@ -140,7 +174,7 @@ public class ShowHidePasswordEditText extends EditText {
 
   @Override
   protected void finalize() throws Throwable {
-    drawableRight = null;
+    drawableEnd = null;
     bounds = null;
     super.finalize();
   }
