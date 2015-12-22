@@ -34,11 +34,11 @@ add remote maven url
     }
 ```
     
-then add a library dependency
+then add a library dependency (remember to check for latest release)
 
 ```groovy
     dependencies {
-        compile 'com.github.scottyab:showhidepasswordedittext:0.1'
+        compile 'com.github.scottyab:showhidepasswordedittext:0.3'
     }
 ```
 
