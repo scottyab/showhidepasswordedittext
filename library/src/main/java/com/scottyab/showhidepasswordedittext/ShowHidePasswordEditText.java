@@ -3,8 +3,10 @@ package com.scottyab.showhidepasswordedittext;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
@@ -30,6 +32,7 @@ public class ShowHidePasswordEditText extends EditText {
 
   @DrawableRes private int visiblityIndicatorShow = R.drawable.ic_visibility_grey_900_24dp;
   @DrawableRes private int visiblityIndicatorHide = R.drawable.ic_visibility_off_grey_900_24dp;
+  private boolean monospace;
 
   public ShowHidePasswordEditText(Context context) {
     super(context);
@@ -62,6 +65,8 @@ public class ShowHidePasswordEditText extends EditText {
 
       visiblityIndicatorShow = attrsArray.getResourceId(R.styleable.ShowHidePasswordEditText_drawable_show, visiblityIndicatorShow);
       visiblityIndicatorHide = attrsArray.getResourceId(R.styleable.ShowHidePasswordEditText_drawable_hide, visiblityIndicatorHide);
+      monospace = attrsArray.getBoolean(R.styleable.ShowHidePasswordEditText_monospace, true);
+
 
       attrsArray.recycle();
     }
@@ -70,6 +75,10 @@ public class ShowHidePasswordEditText extends EditText {
 
     isShowingPassword = false;
     setInputType(EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_PASSWORD, true);
+
+    if(!monospace) {
+      setTypeface(Typeface.DEFAULT);
+    }
 
     if(!TextUtils.isEmpty(getText())){
       showPasswordVisibilityIndicator(true);
