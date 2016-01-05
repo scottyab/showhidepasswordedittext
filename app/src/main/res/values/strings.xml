@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ShowHide Password EditText Sample</string>
+    <string name="app_name">Show/Hide Password Sample</string>
+    <string name="action_github">Get on Github</string>
 </resources>

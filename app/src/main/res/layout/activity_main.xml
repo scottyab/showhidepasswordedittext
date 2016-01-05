@@ -69,6 +69,13 @@
             tools:ignore="HardcodedText"/>
 
 
+        <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notUsingMonospaceFont"
+            android:hint="Uses monospace=false to use default font"
+            app:monospace="false"
+            tools:ignore="HardcodedText"/>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
