@@ -1,15 +1,15 @@
 package com.scottyab.showhidepasswordedittext;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,13 +17,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 
 
 /**
  * Custom version of EditText that shows and hides password onClick of the visibility icon
  */
-public class ShowHidePasswordEditText extends EditText {
+public class ShowHidePasswordEditText extends AppCompatEditText {
 
   private boolean isShowingPassword = false;
   private Drawable drawableEnd;
@@ -42,21 +41,12 @@ public class ShowHidePasswordEditText extends EditText {
   public ShowHidePasswordEditText(Context context, AttributeSet attrs) {
     super(context, attrs);
     init(attrs);
-
   }
 
   public ShowHidePasswordEditText(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
     init(attrs);
   }
-
-
-  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-  public ShowHidePasswordEditText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-    super(context, attrs, defStyleAttr, defStyleRes);
-    init(attrs);
-  }
-
 
   private void init(AttributeSet attrs) {
     if (attrs != null) {
@@ -155,8 +145,8 @@ public class ShowHidePasswordEditText extends EditText {
     if (show) {
 
       Drawable drawable = isShowingPassword?
-              getResources().getDrawable(visiblityIndicatorHide):
-              getResources().getDrawable(visiblityIndicatorShow);
+              ContextCompat.getDrawable(getContext(), visiblityIndicatorHide):
+              ContextCompat.getDrawable(getContext(), visiblityIndicatorShow);
 
       setCompoundDrawablesWithIntrinsicBounds(leftToRight?null:drawable, null, leftToRight?drawable:null, null);
 
