@@ -34,17 +34,20 @@ add remote maven url
     }
 ```
     
-then add a library dependency (remember to check for latest release)
+then add a library dependency. **Remember** to check for latest release [here](https://github.com/scottyab/showhidepasswordedittext/releases) 
 
 ```groovy
     dependencies {
-        compile 'com.github.scottyab:showhidepasswordedittext:0.3'
+        compile 'com.github.scottyab:showhidepasswordedittext:0.5'
     }
 ```
 
 ## Customise
             
-Customise the hide/show icons via `app:drawable_show="@drawable/ic_custom_show"` and `app:drawable_hide="@drawable/ic_custom_hide"`
+Customise the hide/show icons via custom attributes
+ 
+ * `app:drawable_show="@drawable/ic_custom_show"` 
+ * `app:drawable_hide="@drawable/ic_custom_hide"`
   
 
 ##Licence 
