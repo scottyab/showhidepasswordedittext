@@ -35,20 +35,21 @@ add remote maven url
 ```
     
 then add a library dependency. **Remember** to check for latest release [here](https://github.com/scottyab/showhidepasswordedittext/releases) 
-
+                             
 ```groovy
     dependencies {
         compile 'com.github.scottyab:showhidepasswordedittext:0.5'
     }
 ```
 
-## Customise
+## Customization
             
 Customise the hide/show icons via custom attributes
  
  * `app:drawable_show="@drawable/ic_custom_show"` 
  * `app:drawable_hide="@drawable/ic_custom_hide"`
   
+You can also tint icon using xml-attribute `app:tint_color="@android:color/holo_orange_dark"` or in runtime using method `setTintColor(int color)`
 
 ##Licence 
 
