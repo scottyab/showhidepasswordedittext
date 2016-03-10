@@ -1,5 +1,8 @@
 #Changelog
 
+#0.6 (10/03/2016)
+- Added support for Icon tinting 
+
 #0.5 (29/01/2016) 
 - Added visual support for pre-Lollipop devices
 
