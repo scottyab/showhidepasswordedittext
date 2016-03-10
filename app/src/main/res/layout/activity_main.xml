@@ -76,6 +76,24 @@
             android:hint="Uses monospace=false to use default font"
             app:monospace="false"
             tools:ignore="HardcodedText"/>
+
+        <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+            android:id="@+id/xmlTinting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Uses tint defined in XML-resources"
+            app:monospace="false"
+            app:tint_color="#5e00ff"
+            tools:ignore="HardcodedText"/>
+
+        <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+            android:id="@+id/javaTinting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Uses tint defined in Java at runtime"
+            app:monospace="false"
+            tools:ignore="HardcodedText"/>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
