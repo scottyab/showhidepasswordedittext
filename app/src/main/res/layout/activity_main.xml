@@ -25,20 +25,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.scottyab.sample.MainActivity"
-        android:orientation="vertical"
         tools:showIn="@layout/activity_main">
 
 
         <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+            android:id="@+id/simplePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/simplePassword"
             android:hint="Password"
             android:text="HelloWorld"
             tools:ignore="HardcodedText"/>
@@ -49,40 +49,39 @@
             android:layout_height="wrap_content">
 
             <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+                android:id="@+id/passwordInTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/passwordInTextInputLayout"
                 android:hint="Password in TextInputLayout"
                 tools:ignore="HardcodedText"/>
-
 
         </android.support.design.widget.TextInputLayout>
 
 
         <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+            android:id="@+id/customHideShowPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/customHideShowPassword"
             android:hint="Custom hide show icons"
-            app:drawable_show="@drawable/ic_custom_show"
             app:drawable_hide="@drawable/ic_custom_hide"
+            app:drawable_show="@drawable/ic_custom_show"
             tools:ignore="HardcodedText"/>
 
 
         <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+            android:id="@+id/customFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/notUsingMonospaceFont"
-            android:hint="Uses monospace=false to use default font"
-            app:monospace="false"
+            android:hint="Use custom font"
             tools:ignore="HardcodedText"/>
 
         <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
             android:id="@+id/xmlTinting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Uses tint defined in XML-resources"
-            app:monospace="false"
+            android:hint="Tint defined in XML and padding"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             app:tint_color="#5e00ff"
             tools:ignore="HardcodedText"/>
 
@@ -91,8 +90,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Uses tint defined in Java at runtime"
-            app:monospace="false"
             tools:ignore="HardcodedText"/>
+
+        <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+            android:id="@+id/numberInputType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:hint="Number password"
+            android:inputType="numberPassword"
+            tools:ignore="HardcodedText"/>
+
 
     </LinearLayout>
 
