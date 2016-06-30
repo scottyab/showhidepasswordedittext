@@ -1,5 +1,9 @@
 #Changelog
 
+#0.8
+- added state saving for isPassword showing so this now survives config changes
+- Fix bug where other compound drawables would be overidden
+
 #0.7 (30/06/2016)
 - Support for InputType.TYPE_NUMBER_VARIATION_PASSWORD input type
 - Support for custom fonts

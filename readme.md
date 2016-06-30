@@ -8,9 +8,10 @@ Features:
 * Use custom fonts/typefaces
 * Customise the show/hide icon
 * Tint the show/hide icon
-* Use either `android:inputType="textPassword"` or             `android:inputType="numberPassword"`
+* Use either `android:inputType="textPassword"` or  `android:inputType="numberPassword"`
 * Compatible with `TextInputLayout` from the Design Support lib.
 * Supports back to API 9+ (Gingerbread)
+* Password visibility survives configuration changes
 
 <img width="270" src="./docs/sample_screen_shot.png" />
 
@@ -51,7 +52,7 @@ then add a library dependency. **Remember** to check for latest release [here](h
                              
 ```groovy
     dependencies {
-        compile 'com.github.scottyab:showhidepasswordedittext:0.7'
+        compile 'com.github.scottyab:showhidepasswordedittext:0.8'
     }
 ```
 
