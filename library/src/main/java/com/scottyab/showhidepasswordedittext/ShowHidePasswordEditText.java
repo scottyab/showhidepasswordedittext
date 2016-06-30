@@ -160,6 +160,14 @@ public class ShowHidePasswordEditText extends EditText {
     }
 
     private void showPasswordVisibilityIndicator(boolean show) {
+
+        //preserve and existing CompoundDrawables
+        Drawable[] existingDrawables = getCompoundDrawables();
+        Drawable left = existingDrawables[0];
+        Drawable top = existingDrawables[1];
+        Drawable right = existingDrawables[2];
+        Drawable bottom = existingDrawables[3];
+
         if (show) {
             Drawable original = isShowingPassword ?
                     ContextCompat.getDrawable(getContext(), visibilityIndicatorHide) :
@@ -167,14 +175,14 @@ public class ShowHidePasswordEditText extends EditText {
             original.mutate();
 
             if (tintColor == 0) {
-                setCompoundDrawablesWithIntrinsicBounds(leftToRight ? null : original, null, leftToRight ? original : null, null);
+                setCompoundDrawablesWithIntrinsicBounds(leftToRight ? left : original, top, leftToRight ? original : right, bottom);
             } else {
                 Drawable wrapper = DrawableCompat.wrap(original);
                 DrawableCompat.setTint(wrapper, tintColor);
-                setCompoundDrawablesWithIntrinsicBounds(leftToRight ? null : wrapper, null, leftToRight ? wrapper : null, null);
+                setCompoundDrawablesWithIntrinsicBounds(leftToRight ? left : wrapper, top, leftToRight ? wrapper : right, bottom);
             }
         } else {
-            setCompoundDrawables(null, null, null, null);
+            setCompoundDrawablesWithIntrinsicBounds(leftToRight ? left : null, top, leftToRight ? null : right, bottom);
         }
     }
 

@@ -111,6 +111,17 @@
             tools:ignore="HardcodedText"/>
 
 
+        <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+            android:id="@+id/otherCompoundDrawables"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@mipmap/ic_launcher"
+            android:drawableLeft="@mipmap/ic_launcher"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:hint="other compound drawables"
+            android:inputType="textPassword"
+            tools:ignore="HardcodedText"/>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
