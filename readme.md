@@ -27,9 +27,11 @@ add remote maven url
 
 ```groovy
 
-    repositories {
-        maven {
-            url "https://jitpack.io"
+    allprojects {
+        repositories {
+            maven {
+                url "https://jitpack.io"
+            }
         }
     }
 ```
@@ -38,7 +40,7 @@ then add a library dependency. **Remember** to check for latest release [here](h
                              
 ```groovy
     dependencies {
-        compile 'com.github.scottyab:showhidepasswordedittext:0.5'
+        compile 'com.github.scottyab:showhidepasswordedittext:0.6'
     }
 ```
 
