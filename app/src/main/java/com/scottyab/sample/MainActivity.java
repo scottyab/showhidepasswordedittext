@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText;
 
@@ -31,6 +33,17 @@ public class MainActivity extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getResources().getAssets(), "fonts/Rubrik-Medium.otf");
         ShowHidePasswordEditText customFontTV = (ShowHidePasswordEditText) findViewById(R.id.customFontAndHideShow);
         customFontTV.setTypeface(tf);
+
+        //show the error icon
+        final ShowHidePasswordEditText errorIcon = (ShowHidePasswordEditText) findViewById(R.id.errorIcon);
+        Button validate = (Button) findViewById(R.id.validate);
+        validate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                errorIcon.setError("This is a sample error message");
+            }
+        });
+
     }
 
 
