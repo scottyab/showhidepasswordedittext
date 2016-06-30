@@ -6,6 +6,8 @@ import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
@@ -75,12 +77,19 @@ public class ShowHidePasswordEditText extends EditText {
 
         leftToRight = isLeftToRight();
 
-        isShowingPassword = false;
-        setTransformationMethod(PasswordTransformationMethod.getInstance());
-
         //ensures by default this view is only line only
         setMaxLines(1);
+
+        //note this must be set before maskPassword() otherwise it was undeo the passwordTransformation
         setSingleLine(true);
+
+
+        //initial state is hiding
+        isShowingPassword = false;
+        maskPassword();
+
+        //save the state of whether the password is being shown
+        setSaveEnabled(true);
 
         if (!TextUtils.isEmpty(getText())) {
             showPasswordVisibilityIndicator(true);
@@ -164,7 +173,7 @@ public class ShowHidePasswordEditText extends EditText {
     }
 
     private void showPasswordVisibilityIndicator(boolean show) {
-
+        //Log.d(TAG, "showPasswordVisibilityIndicator() called with: " + "show = [" + show + "]");
         //preserve and existing CompoundDrawables
         Drawable[] existingDrawables = getCompoundDrawables();
         Drawable left = existingDrawables[0];
@@ -191,6 +200,16 @@ public class ShowHidePasswordEditText extends EditText {
     }
 
 
+    //make it visible
+    private void unmaskPassword() {
+        setTransformationMethod(null);
+    }
+
+    //hide it
+    private void maskPassword() {
+        setTransformationMethod(PasswordTransformationMethod.getInstance());
+    }
+
     public void togglePasswordVisibility() {
         // Store the selection
         int selectionStart = this.getSelectionStart();
@@ -198,9 +217,9 @@ public class ShowHidePasswordEditText extends EditText {
 
         // Set transformation method to show/hide password
         if (isShowingPassword) {
-            setTransformationMethod(PasswordTransformationMethod.getInstance());
+            maskPassword();
         } else {
-            setTransformationMethod(null);
+            unmaskPassword();
         }
 
         // Restore selection
@@ -255,4 +274,32 @@ public class ShowHidePasswordEditText extends EditText {
     public void setAdditionalTouchTargetSizePixels(int additionalTouchTargetSize) {
         this.additionalTouchTargetSize = additionalTouchTargetSize;
     }
+
+    private final static String IS_SHOWING_PASSWORD_STATE_KEY = "IS_SHOWING_PASSWORD_STATE_KEY";
+    private final static String SUPER_STATE_KEY = "SUPER_STATE_KEY";
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(SUPER_STATE_KEY, super.onSaveInstanceState());
+        bundle.putBoolean(IS_SHOWING_PASSWORD_STATE_KEY, this.isShowingPassword);
+        return bundle;
+    }
+
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            this.isShowingPassword = bundle.getBoolean(IS_SHOWING_PASSWORD_STATE_KEY, false);
+
+            if (isShowingPassword) {
+                unmaskPassword();
+            }
+            state = bundle.getParcelable(SUPER_STATE_KEY);
+        }
+        super.onRestoreInstanceState(state);
+    }
+
+
 }
