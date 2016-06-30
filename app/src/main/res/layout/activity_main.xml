@@ -59,29 +59,37 @@
 
 
         <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
-            android:id="@+id/customHideShowPassword"
+            android:id="@+id/customFontAndHideShow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Custom hide show icons"
+            android:hint="Using custom font and icons"
             app:drawable_hide="@drawable/ic_custom_hide"
             app:drawable_show="@drawable/ic_custom_show"
             tools:ignore="HardcodedText"/>
 
 
         <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
-            android:id="@+id/customFont"
+            android:id="@+id/touchTargetSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Use custom font"
+            android:hint="Additional touch target size"
+            app:additionalTouchTargetSize="50dp"
+            tools:ignore="HardcodedText"/>
+
+        <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+            android:id="@+id/extraPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="With padding set"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             tools:ignore="HardcodedText"/>
 
         <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
             android:id="@+id/xmlTinting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tint defined in XML and padding"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:hint="Tint colour defined in XML"
             app:tint_color="#5e00ff"
             tools:ignore="HardcodedText"/>
 
@@ -90,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Uses tint defined in Java at runtime"
+            android:inputType="textPassword"
             tools:ignore="HardcodedText"/>
 
         <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
@@ -97,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
-            android:hint="Number password"
+            android:hint="Number based password type"
             android:inputType="numberPassword"
             tools:ignore="HardcodedText"/>
 

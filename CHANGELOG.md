@@ -1,5 +1,12 @@
 #Changelog
 
+#0.7 (30/06/2016)
+- Support for InputType.TYPE_NUMBER_VARIATION_PASSWORD input type
+- Support for custom fonts
+- **Removed monospace attribute (a previous attempt at custom fonts fix)
+- fix padding issue
+- added new attribute additionalTouchTargetSize to give more control of the size of the touch area which toggles the password
+
 #0.6 (10/03/2016)
 - Added support for Icon tinting 
 

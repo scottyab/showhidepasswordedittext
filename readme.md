@@ -1,7 +1,16 @@
 #Show/Hide Password EditText 
 
 Inputting text on mobile devices with their smaller keyboards can be error prone and when the password is obscured it can lead to failed login attempts that can frustrate users. 
-Show/Hide Password EditText is a very simple extension of Android's EditText that puts a clickable hide/show icon in the right hand side of the EditText that allows showing of the password. Can be used with `TextInputLayout` from the design support lib.   
+Show/Hide Password EditText is a very simple extension of Android's EditText that puts a clickable hide/show icon in the right hand side of the EditText that allows showing of the password.
+
+Features:
+
+* Use custom fonts/typefaces
+* Customise the show/hide icon
+* Tint the show/hide icon
+* Use either `android:inputType="textPassword"` or             `android:inputType="numberPassword"`
+* Compatible with `TextInputLayout` from the Design Support lib.
+* Supports back to API 9+ (Gingerbread)
 
 <img width="270" src="./docs/sample_screen_shot.png" />
 
@@ -18,6 +27,8 @@ It's just like the regular EditText.
             android:hint="Password"
             />
 ```            
+
+Also see several examples in the sample project.
 
 
 ## Add as dependency
@@ -40,18 +51,21 @@ then add a library dependency. **Remember** to check for latest release [here](h
                              
 ```groovy
     dependencies {
-        compile 'com.github.scottyab:showhidepasswordedittext:0.6'
+        compile 'com.github.scottyab:showhidepasswordedittext:0.7'
     }
 ```
 
 ## Customization
             
-Customise the hide/show icons via custom attributes
- 
- * `app:drawable_show="@drawable/ic_custom_show"` 
- * `app:drawable_hide="@drawable/ic_custom_hide"`
-  
-You can also tint icon using xml-attribute `app:tint_color="@android:color/holo_orange_dark"` or in runtime using method `setTintColor(int color)`
+* Customise the hide/show icons via custom attributes
+ 	* `app:drawable_show="@drawable/ic_custom_show"`
+ 	* `app:drawable_hide="@drawable/ic_custom_hide"`
+
+* You can also tint icon
+    * xml-attribute `app:tint_color="@android:color/holo_orange_dark"`
+    * runtime using `setTintColor(int color)`
+
+* Increase the size of the touch area that makes the view toggle `app:additionalTouchTargetSize=50dp`
 
 ##Licence 
 

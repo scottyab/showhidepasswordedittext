@@ -25,16 +25,21 @@ import android.widget.EditText;
  */
 public class ShowHidePasswordEditText extends EditText {
 
+    private static final String TAG = ShowHidePasswordEditText.class.getSimpleName();
     private boolean isShowingPassword = false;
     private Drawable drawableEnd;
-    private Rect bounds;
     private boolean leftToRight = true;
     private int tintColor = 0;
 
+    private final int DEFAULT_ADDITIONAL_TOUCH_TARGET_SIZE = 40;
+
+
     @DrawableRes
-    private int visiblityIndicatorShow;
+    private int visibilityIndicatorShow;
     @DrawableRes
-    private int visiblityIndicatorHide;
+    private int visibilityIndicatorHide;
+
+    private int additionalTouchTargetSize = DEFAULT_ADDITIONAL_TOUCH_TARGET_SIZE;
 
 
     public ShowHidePasswordEditText(Context context) {
@@ -56,14 +61,16 @@ public class ShowHidePasswordEditText extends EditText {
         if (attrs != null) {
             TypedArray attrsArray = getContext().obtainStyledAttributes(attrs, R.styleable.ShowHidePasswordEditText);
 
-            visiblityIndicatorShow = attrsArray.getResourceId(R.styleable.ShowHidePasswordEditText_drawable_show, R.drawable.ic_visibility_grey_900_24dp);
-            visiblityIndicatorHide = attrsArray.getResourceId(R.styleable.ShowHidePasswordEditText_drawable_hide, R.drawable.ic_visibility_off_grey_900_24dp);
+            visibilityIndicatorShow = attrsArray.getResourceId(R.styleable.ShowHidePasswordEditText_drawable_show, R.drawable.ic_visibility_grey_900_24dp);
+            visibilityIndicatorHide = attrsArray.getResourceId(R.styleable.ShowHidePasswordEditText_drawable_hide, R.drawable.ic_visibility_off_grey_900_24dp);
             tintColor = attrsArray.getColor(R.styleable.ShowHidePasswordEditText_tint_color, 0);
+            additionalTouchTargetSize = attrsArray.getDimensionPixelSize(R.styleable.ShowHidePasswordEditText_additionalTouchTargetSize, DEFAULT_ADDITIONAL_TOUCH_TARGET_SIZE);
 
             attrsArray.recycle();
         } else {
-            visiblityIndicatorShow = R.drawable.ic_visibility_grey_900_24dp;
-            visiblityIndicatorHide = R.drawable.ic_visibility_off_grey_900_24dp;
+            visibilityIndicatorShow = R.drawable.ic_visibility_grey_900_24dp;
+            visibilityIndicatorHide = R.drawable.ic_visibility_off_grey_900_24dp;
+
         }
 
         leftToRight = isLeftToRight();
@@ -131,14 +138,17 @@ public class ShowHidePasswordEditText extends EditText {
     public boolean onTouchEvent(MotionEvent event) {
 
         if (event.getAction() == MotionEvent.ACTION_UP && drawableEnd != null) {
-            bounds = drawableEnd.getBounds();
+            Rect bounds = drawableEnd.getBounds();
 
-            final int x = (int) event.getX();
+            int x = (int) event.getX();
 
+            //take into account the padding and additionalTouchTargetSize
+            int drawableWidthWithPadding = bounds.width() + (leftToRight ? getPaddingRight() : getPaddingLeft()) + additionalTouchTargetSize;
 
             //check if the touch is within bounds of drawableEnd icon
-            if ((leftToRight && (x >= (this.getRight() - bounds.width()))) ||
-                    (!leftToRight && (x <= (this.getLeft() + bounds.width())))) {
+            if ((leftToRight && (x >= (this.getRight() - (drawableWidthWithPadding)))) ||
+                    (!leftToRight && (x <= (this.getLeft() + (drawableWidthWithPadding))))) {
+
                 togglePasswordVisibility();
 
                 //use this to prevent the keyboard from coming up
@@ -152,8 +162,8 @@ public class ShowHidePasswordEditText extends EditText {
     private void showPasswordVisibilityIndicator(boolean show) {
         if (show) {
             Drawable original = isShowingPassword ?
-                    ContextCompat.getDrawable(getContext(), visiblityIndicatorHide) :
-                    ContextCompat.getDrawable(getContext(), visiblityIndicatorShow);
+                    ContextCompat.getDrawable(getContext(), visibilityIndicatorHide) :
+                    ContextCompat.getDrawable(getContext(), visibilityIndicatorShow);
             original.mutate();
 
             if (tintColor == 0) {
@@ -192,29 +202,28 @@ public class ShowHidePasswordEditText extends EditText {
     @Override
     protected void finalize() throws Throwable {
         drawableEnd = null;
-        bounds = null;
         super.finalize();
     }
 
 
     public
     @DrawableRes
-    int getVisiblityIndicatorShow() {
-        return visiblityIndicatorShow;
+    int getVisibilityIndicatorShow() {
+        return visibilityIndicatorShow;
     }
 
-    public void setVisiblityIndicatorShow(@DrawableRes int visiblityIndicatorShow) {
-        this.visiblityIndicatorShow = visiblityIndicatorShow;
+    public void setVisibilityIndicatorShow(@DrawableRes int visibilityIndicatorShow) {
+        this.visibilityIndicatorShow = visibilityIndicatorShow;
     }
 
     public
     @DrawableRes
-    int getVisiblityIndicatorHide() {
-        return visiblityIndicatorHide;
+    int getVisibilityIndicatorHide() {
+        return visibilityIndicatorHide;
     }
 
-    public void setVisiblityIndicatorHide(@DrawableRes int visiblityIndicatorHide) {
-        this.visiblityIndicatorHide = visiblityIndicatorHide;
+    public void setVisibilityIndicatorHide(@DrawableRes int visibilityIndicatorHide) {
+        this.visibilityIndicatorHide = visibilityIndicatorHide;
     }
 
     /**
@@ -224,4 +233,14 @@ public class ShowHidePasswordEditText extends EditText {
         return isShowingPassword;
     }
 
+    public int getAdditionalTouchTargetSizePixels() {
+        return additionalTouchTargetSize;
+    }
+
+    /**
+     * @param additionalTouchTargetSize inPixels
+     */
+    public void setAdditionalTouchTargetSizePixels(int additionalTouchTargetSize) {
+        this.additionalTouchTargetSize = additionalTouchTargetSize;
+    }
 }
