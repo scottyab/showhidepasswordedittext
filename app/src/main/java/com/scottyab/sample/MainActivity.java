@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         //shows setting a cutom font
         Typeface tf = Typeface.createFromAsset(getResources().getAssets(), "fonts/Rubrik-Medium.otf");
-        ShowHidePasswordEditText customFontTV = (ShowHidePasswordEditText) findViewById(R.id.customFont);
+        ShowHidePasswordEditText customFontTV = (ShowHidePasswordEditText) findViewById(R.id.customFontAndHideShow);
         customFontTV.setTypeface(tf);
     }
 
