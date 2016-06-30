@@ -78,6 +78,10 @@ public class ShowHidePasswordEditText extends EditText {
         isShowingPassword = false;
         setTransformationMethod(PasswordTransformationMethod.getInstance());
 
+        //ensures by default this view is only line only
+        setMaxLines(1);
+        setSingleLine(true);
+
         if (!TextUtils.isEmpty(getText())) {
             showPasswordVisibilityIndicator(true);
         }
