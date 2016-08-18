@@ -1,6 +1,6 @@
 #Show/Hide Password EditText 
 
-#In Android Support Library, revision 24.2.0 (August 2016) TextInputLayout adds support for the password visibility toggle. Likely this will make this library redundant.
+#In Android Support Library, revision 24.2.0 (August 2016) TextInputLayout adds support for the password visibility toggle. Marking showhidepasswordedittext as Deprecated at of 18th Aug 2016. 
 
 
 Inputting text on mobile devices with their smaller keyboards can be error prone and when the password is obscured it can lead to failed login attempts that can frustrate users. 
