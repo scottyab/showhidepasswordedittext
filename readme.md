@@ -1,5 +1,8 @@
 #Show/Hide Password EditText 
 
+#In Android Support Library, revision 24.2.0 (August 2016) TextInputLayout adds support for the password visibility toggle. Likely this will make this library redundant.
+
+
 Inputting text on mobile devices with their smaller keyboards can be error prone and when the password is obscured it can lead to failed login attempts that can frustrate users. 
 Show/Hide Password EditText is a very simple extension of Android's EditText that puts a clickable hide/show icon in the right hand side of the EditText that allows showing of the password.
 
